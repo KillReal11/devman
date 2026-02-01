@@ -40,5 +40,3 @@ server = smtplib.SMTP_SSL('smtp.yandex.ru',465)
 server.login((os.getenv("LOGIN")), (os.getenv("TOKEN")))
 server.sendmail(email_from, email_to, edited_email)
 server.quit()
-
-print(edited_email)
