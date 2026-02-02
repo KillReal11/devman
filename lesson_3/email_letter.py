@@ -4,9 +4,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-link=("https://dvmn.org/profession-ref-program/dawiduk2013/xab6J/")
-email_from=("dawiduk2013@yandex.ru")
-email_to=("malina1999@yandex.ru")
+link="https://dvmn.org/profession-ref-program/dawiduk2013/xab6J/"
+email_from="dawiduk2013@yandex.ru"
+email_to="malina1999@yandex.ru"
 
 email=(f"""\
 From: {email_from}
