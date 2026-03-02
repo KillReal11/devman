@@ -4,27 +4,26 @@ from dotenv import load_dotenv
 import random
 from pytimeparse import parse
 
-
+load_dotenv()
 TG_TOKEN = os.getenv("TG_TOKEN")
 TG_USER_ID = os.getenv("TG_USER_ID")
-bot = ptbot.Bot(TG_TOKEN)
 
 
-def announce(chat_id, question):
+def announce(chat_id, question, bot):
     total_secs = parse(question)
     secs_left = total_secs
     text_start = "Starting timer..."
     message_id = bot.send_message(chat_id, text_start)
-    bot.create_timer(secs_left, notify_ending, chat_id=chat_id)
-    bot.create_countdown(secs_left, notify_progress, chat_id=chat_id, message_id=message_id, total=total_secs)
+    bot.create_timer(secs_left, notify_ending, chat_id=chat_id, bot=bot)
+    bot.create_countdown(secs_left, notify_progress, chat_id=chat_id, message_id=message_id, total=total_secs, bot=bot)
 
 
-def notify_progress(secs_left, chat_id, message_id, total):
+def notify_progress(secs_left, bot, chat_id, message_id, total):
     message = f"{secs_left} sec's left!\n {render_progressbar(total, secs_left)}"
     bot.update_message(chat_id, message_id, message)
 
 
-def notify_ending(chat_id):
+def notify_ending(chat_id, bot):
     text_end = "Time's up!"
     bot.send_message(chat_id, text_end)
 
@@ -39,8 +38,8 @@ def render_progressbar(total, iteration, prefix='', suffix='', length=30, fill='
 
 
 def main():
-    load_dotenv()
-    bot.reply_on_message(announce)
+    bot = ptbot.Bot(TG_TOKEN)
+    bot.reply_on_message(announce, bot=bot)
     bot.run_bot()
 
 
