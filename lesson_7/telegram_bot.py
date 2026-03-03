@@ -4,10 +4,6 @@ from dotenv import load_dotenv
 import random
 from pytimeparse import parse
 
-load_dotenv()
-TG_TOKEN = os.getenv("TG_TOKEN")
-TG_USER_ID = os.getenv("TG_USER_ID")
-
 
 def announce(chat_id, question, bot):
     total_secs = parse(question)
@@ -38,6 +34,8 @@ def render_progressbar(total, iteration, prefix='', suffix='', length=30, fill='
 
 
 def main():
+    load_dotenv()
+    TG_TOKEN = os.getenv("TG_TOKEN")
     bot = ptbot.Bot(TG_TOKEN)
     bot.reply_on_message(announce, bot=bot)
     bot.run_bot()
