@@ -30,8 +30,9 @@ def get_distance(cafe):
 
 
 def main():
-    with open('coffee.json', mode='r') as file:
+    with open('coffee.json', 'r', encoding="CP1251") as file:
         content = file.read()
+        print(content)
     cafe_list = json.loads(content)
 
     load_dotenv()
